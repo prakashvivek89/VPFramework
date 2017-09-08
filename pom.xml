@@ -1,0 +1,227 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.VP.Framework</groupId>
+	<artifactId>VPFramework</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>VPFramework</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<cucumber.version>1.2.4</cucumber.version>
+		<selenium.version>3.5.3</selenium.version>
+		<slf4jVersion>1.7.21</slf4jVersion>
+		<cucumber-jvm-deps>1.0.5</cucumber-jvm-deps>
+		<picocontainer>2.15</picocontainer>
+		<maven-surefire-plugin>2.20</maven-surefire-plugin>
+		<maven-compiler-plugin>3.5.1</maven-compiler-plugin>
+		<maven-cucumber-reporting>3.10.0</maven-cucumber-reporting>
+		<cucumber-jvm-parallel-plugin>4.2.0</cucumber-jvm-parallel-plugin>
+		<testng>6.8.21</testng>
+		<java-version>1.8</java-version>
+		<random-string>1.1.0</random-string>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java-compiler>C:\Program Files\Java\jdk1.8.0_102\bin\javac.exe</java-compiler>
+		<java-tools.jar>C:\Program Files\Java\jdk1.8.0_102\lib\tools.jar</java-tools.jar>
+	</properties>
+
+	<build>
+		<!-- <pluginManagement> -->
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven-compiler-plugin}</version>
+					<configuration>
+						<encoding>${utf-8}</encoding>
+						<fork>true</fork>
+						<executable>${java-compiler}</executable>
+						<source>${java-version}</source>
+						<target>${java-version}</target>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>${maven-surefire-plugin}</version>
+					<executions>
+						<execution>
+							<id>acceptance-test</id>
+							<phase>integration-test</phase>
+							<goals>
+								<goal>test</goal>
+							</goals>
+							<configuration>
+								<forkCount>2</forkCount>
+								<reuseForks>true</reuseForks>
+								<includes>
+									<include>**/*IT.class</include>
+								</includes>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-failsafe-plugin</artifactId>
+					<version>2.20</version>
+					<configuration>
+						<includes>
+							<include>Sample.java</include>
+						</includes>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>com.github.temyers</groupId>
+					<artifactId>cucumber-jvm-parallel-plugin</artifactId>
+					<version>${cucumber-jvm-parallel-plugin}</version>
+					<executions>
+						<execution>
+							<id>generateRunners</id>
+							<phase>validate</phase>
+							<goals>
+								<goal>generateRunners</goal>
+							</goals>
+							<configuration>
+								<glue>com.VP.Framework.Adviser.StepsDefination</glue>
+								<outputDirectory>${project.build.directory}/generated-test-sources/cucumber</outputDirectory>
+								<featuresDirectory>src/test/resources/features</featuresDirectory>
+								<cucumberOutputDir>target/cucumber-parallel</cucumberOutputDir>
+								<format>html</format>
+								<strict>true</strict>
+								<monochrome>true</monochrome>
+								<!-- <tags>
+									<tag>@login</tag>
+									<tag> @client</tag>
+								</tags> -->
+								<useTestNG>false</useTestNG>
+								<parallelScheme>FEATURE</parallelScheme>
+								<filterFeaturesByTags>true</filterFeaturesByTags>
+								<namingScheme>feature-title</namingScheme>
+								<namingPattern>Parallel{c}IT</namingPattern>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+
+				<plugin>
+					<groupId>net.masterthought</groupId>
+					<artifactId>maven-cucumber-reporting</artifactId>
+					<version>${maven-cucumber-reporting}</version>
+					<executions>
+						<execution>
+							<id>execution</id>
+							<phase>test</phase>
+							<goals>
+								<goal>generate</goal>
+							</goals>
+							<configuration>
+								<projectName>VPFramework</projectName>
+								<outputDirectory>target/cucumber-report/cucumber-html-reports</outputDirectory>
+								<cucumberOutput>target/cucumber-report/runwebat/cucumber.json</cucumberOutput>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+
+			</plugins>
+		<!-- </pluginManagement> -->
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.sun</groupId>
+			<artifactId>tools</artifactId>
+			<version>1.6</version>
+			<scope>system</scope>
+			<systemPath>${java-tools.jar}</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>net.moznion</groupId>
+			<artifactId>random-string</artifactId>
+			<version>${random-string}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>20030203.000129</version>
+		</dependency>
+
+		<!-- Selenium Jars -->
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>${selenium.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-server</artifactId>
+			<version>${selenium.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.vimalselvam</groupId>
+			<artifactId>cucumber-extentsreport</artifactId>
+			<version>3.0.1</version>
+		</dependency>
+
+		<!-- testng Jars -->
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>${testng}</version>
+		</dependency>
+
+		<!-- Cucumber Jars -->
+
+		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-core</artifactId>
+			<version>${cucumber.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-java</artifactId>
+			<version>${cucumber.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-jvm-deps</artifactId>
+			<version>${cucumber-jvm-deps}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-picocontainer</artifactId>
+			<version>${cucumber.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-testng</artifactId>
+			<version>${cucumber.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-junit</artifactId>
+			<version>${cucumber.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+		</dependency>
+
+	</dependencies>
+</project>

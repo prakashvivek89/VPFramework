@@ -1,0 +1,12 @@
+com\VP\Framework\Adviser\PageObjects\LoginPage.class
+com\VP\Framework\Adviser\StepsDefination\NavigationSteps.class
+com\VP\Framework\Adviser\StepsDefination\HomePageSteps.class
+com\VP\Framework\Adviser\StepsDefination\Hooks.class
+com\VP\Framework\Adviser\StepsDefination\LoginPageSteps.class
+Clientscenarios01IT.class
+com\VP\Framework\Adviser\StepsDefination\ClientSteps.class
+com\VP\Framework\Adviser\PageObjects\Clients$Details.class
+com\VP\Framework\Adviser\PageObjects\Clients$Employment.class
+Loginscenarios02IT.class
+com\VP\Framework\Adviser\PageObjects\Clients.class
+com\VP\Framework\Adviser\PageObjects\HomePage.class
